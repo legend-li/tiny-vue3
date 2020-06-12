@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+  <button id="btn">点我（+1）</button>
+  <script src="./vue3-tiny.js"></script>
+  <script>
+    // demo
+    const root = document.getElementById('app')
+    const btn = document.getElementById('btn')
+    const initState = {
+      name:'混沌传奇',
+      age:1
+    }
+    const state = reactive(initState)
+    const doubleAge = computed(() => state.age*2)
+    
+    effect(()=>{
+      // 数据变了，响应式执行这里的代码
+      root.innerHTML = `<h1>${state.name}今年${state.age}岁了，乘以2是${doubleAge.value}</h1>`
+    })
+
+    btn.addEventListener('click', ()=>{
+      // 只操作js对象，引起dom变化
+      state.age += 1
+    }, false)
+  </script>
+</body>
+</html>
